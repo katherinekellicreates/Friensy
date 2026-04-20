@@ -9,13 +9,28 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            ZStack {
+                Color("Pink").ignoresSafeArea(.all)
+                VStack {
+                    Text("Friensy")
+                        .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
+                    NavigationLink(destination: Choices()) {
+                        Text("Play")
+                            .frame(width: 100)
+                            .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
+                            .padding()
+                            .background(Color(.pink.opacity(0.3)))
+                            .foregroundStyle(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                    }
+                    .simultaneousGesture(TapGesture().onEnded { withAnimation(.none) {} })
+                    Spacer()
+                }
+                .padding()
+            }
+            .navigationViewStyle(.stack)
         }
-        .padding()
     }
 }
 

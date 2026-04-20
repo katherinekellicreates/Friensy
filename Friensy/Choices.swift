@@ -76,7 +76,7 @@ struct Choices: View {
             }
         }
     }
-    }
+}
 
 
 #Preview {

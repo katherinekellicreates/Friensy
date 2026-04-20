@@ -16,7 +16,7 @@ struct ContentView: View {
                     Text("Friensy")
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                     NavigationLink(destination: Choices()) {
-                        Text("Play")
+                        NavigationLink("Play", destination: Choices())
                             .frame(width: 100)
                             .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                             .padding()

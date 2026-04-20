@@ -8,10 +8,76 @@
 import SwiftUI
 
 struct Choices: View {
+    @State private var number = 0
+    @State private var fahrenheit = 0.0
+    @State private var gender = "Male"
+    @State private var weather = "☀️"
+    @State private var outdoors = false
+    @State private var indoors = false
     var body: some View {
-        Text("Hello, World!")
+        VStack(spacing: 20) {
+            Text("Choices")
+                .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
+            HStack {
+                Text("Attendees")
+                Picker("", selection: $number) {
+                    Text("1").tag(1)
+                    Text("2").tag(2)
+                    Text("3").tag(3)
+                    Text("4").tag(4)
+                    Text("5").tag(5)
+                    Text("6").tag(6)
+                    Text("7+").tag(7)
+                }
+                .pickerStyle(.segmented)
+                .scaleEffect(1.15)
+                .frame(width: 250, height: 35)
+                .padding()
+            }
+            VStack(spacing: 5) {
+                Text("Who's coming?")
+                Picker("", selection: $gender) {
+                    Text("Males").tag("Males")
+                    Text("Females").tag("Females")
+                    Text("Both").tag("Both")
+                }
+                .pickerStyle(.segmented)
+                .scaleEffect(1.3)
+                .frame(width: 250, height: 40)
+            }
+            .padding(10)
+            Text("Weather")
+            Slider(value: $fahrenheit, in: -30...110)
+            Text("\(fahrenheit, specifier: "%.1f") Fahrenheit")
+            HStack{
+                Picker("", selection: $weather) {
+                    Text("☀️").tag("☀️")
+                    Text("⛅").tag("⛅")
+                    Text("🌧️").tag("🌧️")
+                    Text("🌩️").tag("🌩️")
+                    Text("❄️").tag("❄️")
+                }
+                .pickerStyle(.segmented)
+                .scaleEffect(1.3)
+                .frame(width: 250, height: 40)
+            }
+            .padding(20)
+            HStack{
+                Text("Indoors")
+                    .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                    .fontWeight(outdoors ? .regular : .bold)
+                    .foregroundColor(outdoors ? .secondary : .primary)
+                Toggle("", isOn: $outdoors)
+                    .frame(width: 60)
+                Text("Outdoors")
+                    .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                    .fontWeight(outdoors ? .bold : .regular)
+                    .foregroundColor(outdoors ? .primary : .secondary) // sets mi to bold if in mi
+            }
+        }
     }
-}
+    }
+
 
 #Preview {
     Choices()

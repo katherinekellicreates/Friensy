@@ -9,6 +9,10 @@ import SwiftUI
 import MapKit
 
 struct Choices: View {
+    @State private var region = MKCoordinateRegion(
+        center: CLLocationCoordinate2D(latitude: 42.1556, longitude: -88.1470),
+        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    )
     @State private var number = 0
     @State private var fahrenheit = 0.0
     @State private var gender = "Male"
@@ -17,7 +21,7 @@ struct Choices: View {
     @State private var indoors = false
     @State private var isDate = false
     @State private var locationManager = LocationManager()
-    @State private var locationConfirmed = false    
+    @State private var radius: Double = 5
     
     var body: some View {
         NavigationView {
@@ -104,13 +108,25 @@ struct Choices: View {
                             Text("\(locationManager.city), \(locationManager.zip)")
                                 .font(.headline)
                             
-                            Toggle("Is this your location?", isOn: $locationConfirmed)
-                                .padding(.top, 5)
-                            
                         } else {
                             Text("Fetching location...")
                                 .foregroundColor(.gray)
                         }
+                    }
+                    
+                    VStack(spacing: 8) {
+                        Text("Radius")
+
+                        Picker("Radius", selection: $radius) {
+                            Text("2 mi").tag(2.0)
+                            Text("5 mi").tag(5.0)
+                            Text("10 mi").tag(10.0)
+                            Text("15 mi").tag(15.0)
+                            Text("20 mi").tag(20.0)
+                            Text("25+ mi").tag(25.0)
+                        }
+                        .pickerStyle(.segmented)
+                        .scaleEffect(0.9)
                     }
                     .padding()
                     

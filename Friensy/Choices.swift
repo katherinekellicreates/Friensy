@@ -9,7 +9,7 @@ import SwiftUI
 import MapKit
 
 struct Choices: View {
-    @State private var startPosition = MapCameraPosition.userLocation(fallback: .automatic)
+    @State private var startPosition = MapCameraPosition.automatic
     @State private var number = 0
     @State private var fahrenheit = 0.0
     @State private var gender = "Male"
@@ -128,6 +128,7 @@ struct Choices: View {
                     .padding()
                     
                     let radiusInMeters = radius * 1609.34
+                    
                     Map(position: $startPosition) {
                         UserAnnotation()
 
@@ -142,6 +143,12 @@ struct Choices: View {
                         RoundedRectangle(cornerRadius: 25)
                             .stroke(Color(.pink.opacity(0.4)), lineWidth: 10)
                         )
+                    .onChange(of: radius) {
+                        updateCamera()
+                    }
+                    .onAppear {
+                        updateCamera()
+                    }
                     .padding(.horizontal)
                     
                     Spacer()
@@ -162,6 +169,23 @@ struct Choices: View {
             }
             .navigationViewStyle(.stack)
             .padding(.bottom, 40)
+        }
+    }
+    
+    func updateCamera() {
+        if let location = locationManager.userLocation {
+            
+            let distance = radius * 1609.34  // miles → meters
+            
+            startPosition = .region(
+                MKCoordinateRegion(
+                    center: location,
+                    span: MKCoordinateSpan(
+                        latitudeDelta: distance / 111000,
+                        longitudeDelta: distance / 111000
+                    )
+                )
+            )
         }
     }
 }

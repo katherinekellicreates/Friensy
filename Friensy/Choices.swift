@@ -95,6 +95,25 @@ struct Choices: View {
                     }
                     .padding()
                     
+                    VStack(spacing: 8) {
+                        Text("Location")
+                            .font(Font.custom("Bodoni 72 Oldstyle", size: 20))
+                        
+                        if locationManager.city != "" {
+                            
+                            Text("\(locationManager.city), \(locationManager.zip)")
+                                .font(.headline)
+                            
+                            Toggle("Is this your location?", isOn: $locationConfirmed)
+                                .padding(.top, 5)
+                            
+                        } else {
+                            Text("Fetching location...")
+                                .foregroundColor(.gray)
+                        }
+                    }
+                    .padding()
+                    
                     Spacer()
                     
                     NavigationLink(destination: Results()) {

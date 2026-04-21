@@ -148,5 +148,5 @@ struct Where: View {
     }
 }
 #Preview {
-    Choices()
+    Where()
 }

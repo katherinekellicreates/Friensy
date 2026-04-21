@@ -12,6 +12,7 @@ struct WhosComing: View {
     @State private var number = 0
     @State private var gender = "Male"
     @State private var isDate = false
+    @State private var goOut = false
     
     var body: some View {
         NavigationView {
@@ -59,9 +60,20 @@ struct WhosComing: View {
                     }
                     .padding(10)
                     
+                    HStack{
+                        Text("Stay In")
+                            .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                            .fontWeight(goOut ? .regular : .bold)
+                            .foregroundColor(goOut ? .secondary : .primary)
+                        Toggle("", isOn: $goOut)
+                            .frame(width: 60)
+                        Text("Go Out")
+                            .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                            .fontWeight(goOut ? .bold : .regular)
+                            .foregroundColor(goOut ? .primary : .secondary)
                     }
-                    .padding(20)
-              
+                    .padding()
+                    
                     NavigationLink(destination: Where()) {
                         Text("Next")
                             .frame(width: 100)
@@ -80,7 +92,8 @@ struct WhosComing: View {
             .padding(.bottom, 40)
         }
     }
+}
 
 #Preview {
-    Choices()
+    WhosComing()
 }

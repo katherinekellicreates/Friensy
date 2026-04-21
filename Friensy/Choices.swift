@@ -133,15 +133,21 @@ struct Choices: View {
 
                         if let location = locationManager.userLocation {
                             MapCircle(center: location, radius: radius * 1609.34)
-                                .foregroundStyle(.blue.opacity(0.2))
+                                .foregroundStyle(.pink.opacity(0.1))
                         }
                     }
-                    .frame(height: 200)
+                    .aspectRatio(1, contentMode: .fit)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 25)
+                            .stroke(Color(.pink.opacity(0.4)), lineWidth: 10)
+                        )
+                    .padding(.horizontal)
                     
                     Spacer()
                     
                     NavigationLink(destination: Results()) {
-                        Text("Play")
+                        Text("Plan")
                             .frame(width: 100)
                             .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                             .padding()

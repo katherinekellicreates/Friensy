@@ -16,7 +16,8 @@ struct Choices: View {
     @State private var outdoors = false
     @State private var indoors = false
     @State private var isDate = false
-    
+    @State private var locationManager = LocationManager()
+    @State private var locationConfirmed = false    
     
     var body: some View {
         NavigationView {

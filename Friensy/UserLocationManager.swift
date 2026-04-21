@@ -12,6 +12,9 @@ import CoreLocation
 class LocationManager: NSObject, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
     var userLocation: CLLocationCoordinate2D?
+    var geocoder = CLGeocoder()
+    var city = ""
+    var zip = ""
     
     override init() {
         super.init ()
@@ -24,6 +27,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last {
             userLocation = location.coordinate
+            geocoder.reverseGeocodeLocation(location) { placemarks, error in
+                if let placemark = placemarks?.first {
+                    self.city = placemark.locality ?? "Unknown City"
+                    self.zip = placemark.postalCode ?? "Unknown ZIP"
+                }
+            }
         }
     }
 }

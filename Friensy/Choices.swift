@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 struct Choices: View {
     @State private var number = 0

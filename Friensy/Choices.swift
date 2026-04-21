@@ -9,10 +9,7 @@ import SwiftUI
 import MapKit
 
 struct Choices: View {
-    @State private var region = MKCoordinateRegion(
-        center: CLLocationCoordinate2D(latitude: 42.1556, longitude: -88.1470),
-        span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
-    )
+    @State private var startPosition = MapCameraPosition.userLocation(fallback: .automatic)
     @State private var number = 0
     @State private var fahrenheit = 0.0
     @State private var gender = "Male"
@@ -129,6 +126,17 @@ struct Choices: View {
                         .scaleEffect(0.9)
                     }
                     .padding()
+                    
+                    let radiusInMeters = radius * 1609.34
+                    Map(position: $startPosition) {
+                        UserAnnotation()
+
+                        if let location = locationManager.userLocation {
+                            MapCircle(center: location, radius: radius * 1609.34)
+                                .foregroundStyle(.blue.opacity(0.2))
+                        }
+                    }
+                    .frame(height: 200)
                     
                     Spacer()
                     

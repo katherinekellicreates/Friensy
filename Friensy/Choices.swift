@@ -16,9 +16,7 @@ struct Choices: View {
     @State private var indoors = false
     @State private var isDate = false
     
-    var isDateValid: Bool {
-        number == 2 && gender == "Both" && isDate
-    }
+    
     var body: some View {
         NavigationView {
             ScrollView {
@@ -52,24 +50,18 @@ struct Choices: View {
                         .scaleEffect(1.3)
                         .frame(width: 250, height: 40)
                     }
-                    if number == 2 && gender == "Both" {
-                        VStack(spacing: 5) {
-                            Text("Is this a date?")
-                            
-                            Picker("", selection: $isDate) {
-                                Text("No").tag(false)
-                                Text("Yes").tag(true)
-                            }
-                            .pickerStyle(.segmented)
-                            .scaleEffect(1.2)
-                            .frame(width: 200, height: 35)
+                    VStack(spacing: 5) {
+                        Text("Is this a date?")
+                        
+                        Picker("", selection: $isDate) {
+                            Text("No").tag(false)
+                            Text("Yes").tag(true)
                         }
-                        .padding(10)
-                        .onAppear {
-                            isDate = false
-                        }
+                        .pickerStyle(.segmented)
+                        .scaleEffect(1.2)
+                        .frame(width: 200, height: 35)
                     }
-                    
+                    .padding(10)
                     
                     Text("Weather")
                     Slider(value: $fahrenheit, in: -30...110)
@@ -104,7 +96,7 @@ struct Choices: View {
                     Spacer()
                     
                     NavigationLink(destination: Results()) {
-                        NavigationLink("Play", destination: Results())
+                        Text("Play")
                             .frame(width: 100)
                             .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                             .padding()
@@ -120,18 +112,8 @@ struct Choices: View {
             .navigationViewStyle(.stack)
             .padding(.bottom, 40)
         }
-            .onChange(of: number) {
-                if !(number == 2 && gender == "Both") {
-                    isDate = false
-                }
-            }
-            .onChange(of: gender) {
-                if !(number == 2 && gender == "Both") {
-                    isDate = false
-                }
-            }
-        }
     }
+}
 #Preview {
     Choices()
 }

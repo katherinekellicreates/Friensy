@@ -16,13 +16,8 @@ struct ContentView: View {
                 VStack {
                     Text("Friensy")
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
-<<<<<<< HEAD
                     NavigationLink(destination: WhosComing()) {
                         NavigationLink("Plan", destination: WhosComing())
-=======
-                    NavigationLink(destination: Choices()) {
-                        NavigationLink("Play", destination: Choices())
->>>>>>> main
                             .frame(width: 100)
                             .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                             .padding()
@@ -38,7 +33,7 @@ struct ContentView: View {
             .navigationViewStyle(.stack)
         }
     }
-
-#Preview {
-    ContentView()
 }
+    #Preview {
+        ContentView()
+    }

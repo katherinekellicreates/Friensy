@@ -111,8 +111,8 @@ struct Where: View {
                     
                     Spacer()
                     
-                    NavigationLink(destination: Results()) {
-                        Text("Plan")
+                    NavigationLink(destination: Tellmemore()) {
+                        Text("Next")
                             .frame(width: 100)
                             .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                             .padding()

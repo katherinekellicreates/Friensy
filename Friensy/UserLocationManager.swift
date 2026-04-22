@@ -11,10 +11,13 @@ import CoreLocation
 @Observable
 class LocationManager: NSObject, CLLocationManagerDelegate {
     var locationManager = CLLocationManager()
+<<<<<<< HEAD
     var userLocation: CLLocationCoordinate2D?
     var geocoder = CLGeocoder()
     var city = ""
     var zip = ""
+=======
+>>>>>>> main
     
     override init() {
         super.init ()
@@ -22,6 +25,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.requestWhenInUseAuthorization()
         locationManager.startUpdatingLocation()
     }
+<<<<<<< HEAD
     
     // capture's user's coordinates:
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -35,4 +39,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
             }
         }
     }
+=======
+>>>>>>> main
 }

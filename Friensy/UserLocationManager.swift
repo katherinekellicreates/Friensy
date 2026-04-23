@@ -23,7 +23,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         
-        // ✅ PREVIEW SAFE GUARD
+        // PREVIEW SAFE GUARD
         if !ProcessInfo.processInfo.environment.keys.contains("XCODE_RUNNING_FOR_PREVIEWS") {
             locationManager.startUpdatingLocation()
         }
@@ -33,7 +33,7 @@ class LocationManager: NSObject, CLLocationManagerDelegate {
         guard let location = locations.last else { return }
         userLocation = location.coordinate
         
-        // ❌ don't run geocoder in preview
+        // don't run geocoder in preview
         guard !ProcessInfo.processInfo.environment.keys.contains("XCODE_RUNNING_FOR_PREVIEWS") else {
             return
         }

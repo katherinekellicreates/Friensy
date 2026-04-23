@@ -9,11 +9,8 @@ import SwiftUI
 import MapKit
 
 struct Where: View {
+    @EnvironmentObject var appState: AppStateManager
     @State private var startPosition = MapCameraPosition.automatic
-    @State private var fahrenheit = 0.0
-    @State private var weather = "☀️"
-    @State private var outdoors = false
-    @State private var indoors = false
     @State private var locationManager = LocationManager()
     @State private var radius: Double = 5
     
@@ -25,10 +22,8 @@ struct Where: View {
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                   
                     Text("Weather")
-                    Slider(value: $fahrenheit, in: -30...110)
-                    Text("\(fahrenheit, specifier: "%.1f") Fahrenheit")
                     HStack{
-                        Picker("", selection: $weather) {
+                        Picker("", selection: $appState.state.weather) {
                             Text("☀️").tag("☀️")
                             Text("⛅").tag("⛅")
                             Text("🌧️").tag("🌧️")
@@ -43,14 +38,14 @@ struct Where: View {
                     HStack{
                         Text("Indoors")
                             .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
-                            .fontWeight(outdoors ? .regular : .bold)
-                            .foregroundColor(outdoors ? .secondary : .primary)
-                        Toggle("", isOn: $outdoors)
+                            .fontWeight(appState.state.isOutdoors ? .regular : .bold)
+                            .foregroundColor(appState.state.isOutdoors ? .secondary : .primary)
+                        Toggle("", isOn: $appState.state.isOutdoors)
                             .frame(width: 60)
                         Text("Outdoors")
                             .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
-                            .fontWeight(outdoors ? .bold : .regular)
-                            .foregroundColor(outdoors ? .primary : .secondary) // sets mi to bold if in mi
+                            .fontWeight(appState.state.isOutdoors ? .bold : .regular)
+                            .foregroundColor(appState.state.isOutdoors ? .primary : .secondary) // sets mi to bold if in mi
                     }
                     .padding()
                     

@@ -9,10 +9,7 @@ import SwiftUI
 import MapKit
 
 struct WhosComing: View {
-    @State private var number = 0
-    @State private var gender = "Male"
-    @State private var isDate = false
-    @State private var goOut = false
+    @EnvironmentObject var appState: AppStateManager
     
     var body: some View {
         NavigationView {
@@ -22,7 +19,7 @@ struct WhosComing: View {
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                     HStack {
                         Text("Attendees")
-                        Picker("", selection: $number) {
+                        Picker("", selection: $appState.state.number) {
                             Text("1").tag(1)
                             Text("2").tag(2)
                             Text("3").tag(3)
@@ -38,7 +35,7 @@ struct WhosComing: View {
                     }
                     VStack(spacing: 5) {
                         Text("Who's coming?")
-                        Picker("", selection: $gender) {
+                        Picker("", selection: $appState.state.gender) {
                             Text("Males").tag("Males")
                             Text("Females").tag("Females")
                             Text("Both").tag("Both")
@@ -50,7 +47,7 @@ struct WhosComing: View {
                     VStack(spacing: 5) {
                         Text("Is this a date?")
                         
-                        Picker("", selection: $isDate) {
+                        Picker("", selection: $appState.state.isDate) {
                             Text("No").tag(false)
                             Text("Yes").tag(true)
                         }
@@ -63,14 +60,14 @@ struct WhosComing: View {
                     HStack{
                         Text("Stay In")
                             .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
-                            .fontWeight(goOut ? .regular : .bold)
-                            .foregroundColor(goOut ? .secondary : .primary)
-                        Toggle("", isOn: $goOut)
+                            .fontWeight(appState.state.goOut ? .regular : .bold)
+                            .foregroundColor(appState.state.goOut ? .secondary : .primary)
+                        Toggle("", isOn: $appState.state.goOut)
                             .frame(width: 60)
                         Text("Go Out")
                             .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
-                            .fontWeight(goOut ? .bold : .regular)
-                            .foregroundColor(goOut ? .primary : .secondary)
+                            .fontWeight(appState.state.goOut ? .bold : .regular)
+                            .foregroundColor(appState.state.goOut ? .primary : .secondary)
                     }
                     .padding()
                     

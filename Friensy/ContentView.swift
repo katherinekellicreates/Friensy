@@ -9,6 +9,9 @@ import SwiftUI
 import MapKit
 
 struct ContentView: View {
+    
+    @EnvironmentObject var appState: AppStateManager
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -17,7 +20,7 @@ struct ContentView: View {
                     Text("Friensy")
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                     NavigationLink(destination: WhosComing()) {
-                        NavigationLink("Plan", destination: WhosComing())
+                        Text("Plan")
                             .frame(width: 100)
                             .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                             .padding()

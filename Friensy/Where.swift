@@ -82,12 +82,33 @@ struct Where: View {
                     
                     let radiusInMeters = radius * 1609.34
                     
-                    Map(position: $startPosition) {
-                        UserAnnotation()
-
+                    Group {
                         if let location = locationManager.userLocation {
-                            MapCircle(center: location, radius: radius * 1609.34)
+                            
+                            Map(position: $startPosition) {
+                                UserAnnotation()
+                                
+                                MapCircle(
+                                    center: location,
+                                    radius: radius * 1609.34
+                                )
                                 .foregroundStyle(.pink.opacity(0.1))
+                            }
+                            .onAppear {
+                                updateCamera()
+                            }
+                            .onChange(of: radius) {
+                                updateCamera()
+                            }
+                            
+                        } else {
+                            ZStack {
+                                Color.pink.opacity(0.1)
+                                Text("Loading map...")
+                                    .foregroundStyle(.secondary)
+                            }
+                            .frame(height: 300)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                         }
                     }
                     .aspectRatio(1, contentMode: .fit)

@@ -10,6 +10,7 @@ import SwiftUI
 @main
 struct FriensyApp: App {
     @StateObject var appState = AppStateManager()
+
     var body: some Scene {
         WindowGroup {
             ContentView()

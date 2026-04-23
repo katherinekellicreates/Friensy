@@ -7,29 +7,41 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 @Observable
 class LocationManager: NSObject, CLLocationManagerDelegate {
+    
     var locationManager = CLLocationManager()
     var userLocation: CLLocationCoordinate2D?
-    var geocoder = CLGeocoder()
+    
     var city = ""
     var zip = ""
-
     
     override init() {
-        super.init ()
+        super.init()
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
-        locationManager.startUpdatingLocation()
+        
+        // ✅ PREVIEW SAFE GUARD
+        if !ProcessInfo.processInfo.environment.keys.contains("XCODE_RUNNING_FOR_PREVIEWS") {
+            locationManager.startUpdatingLocation()
+        }
     }
     
-    // capture's user's coordinates:
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.last {
-            userLocation = location.coordinate
-            geocoder.reverseGeocodeLocation(location) { placemarks, error in
-                if let placemark = placemarks?.first {
+        guard let location = locations.last else { return }
+        userLocation = location.coordinate
+        
+        // ❌ don't run geocoder in preview
+        guard !ProcessInfo.processInfo.environment.keys.contains("XCODE_RUNNING_FOR_PREVIEWS") else {
+            return
+        }
+        
+        let geocoder = CLGeocoder()
+        geocoder.reverseGeocodeLocation(location) { placemarks, _ in
+            if let placemark = placemarks?.first {
+                DispatchQueue.main.async {
                     self.city = placemark.locality ?? "Unknown City"
                     self.zip = placemark.postalCode ?? "Unknown ZIP"
                 }

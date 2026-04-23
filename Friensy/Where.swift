@@ -144,4 +144,5 @@ struct Where: View {
 }
 #Preview {
     Where()
+        .environmentObject(AppStateManager())
 }

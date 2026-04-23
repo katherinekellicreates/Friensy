@@ -67,4 +67,5 @@ struct Tellmemore: View {
 }
 #Preview {
     Tellmemore()
+        .environmentObject(AppStateManager())
 }

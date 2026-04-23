@@ -30,3 +30,7 @@ struct Results: View {
         }
     }
 }
+#Preview {
+    Results()
+        .environmentObject(AppStateManager())
+}

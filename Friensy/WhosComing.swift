@@ -12,11 +12,13 @@ struct WhosComing: View {
     @EnvironmentObject var appState: AppStateManager
     
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ScrollView {
                 VStack(spacing: 20) {
+                    
                     Text("Who's Coming")
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
+                    
                     HStack {
                         Text("Attendees")
                         Picker("", selection: $appState.state.number) {
@@ -33,6 +35,7 @@ struct WhosComing: View {
                         .frame(width: 250, height: 35)
                         .padding()
                     }
+                    
                     VStack(spacing: 5) {
                         Text("Who's coming?")
                         Picker("", selection: $appState.state.gender) {
@@ -44,9 +47,9 @@ struct WhosComing: View {
                         .scaleEffect(1.3)
                         .frame(width: 250, height: 40)
                     }
+                    
                     VStack(spacing: 5) {
                         Text("Is this a date?")
-                        
                         Picker("", selection: $appState.state.isDate) {
                             Text("No").tag(false)
                             Text("Yes").tag(true)
@@ -57,40 +60,52 @@ struct WhosComing: View {
                     }
                     .padding(10)
                     
-                    HStack{
+                    HStack {
                         Text("Stay In")
-                            .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                            .font(Font.custom("Bodoni 72 Oldstyle", size: 20))
                             .fontWeight(appState.state.goOut ? .regular : .bold)
                             .foregroundColor(appState.state.goOut ? .secondary : .primary)
+                        
                         Toggle("", isOn: $appState.state.goOut)
                             .frame(width: 60)
+                        
                         Text("Go Out")
-                            .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                            .font(Font.custom("Bodoni 72 Oldstyle", size: 20))
                             .fontWeight(appState.state.goOut ? .bold : .regular)
                             .foregroundColor(appState.state.goOut ? .primary : .secondary)
                     }
                     .padding()
                     
-                    NavigationLink(destination: Where()) {
-                        Text("Next")
-                            .frame(width: 100)
-                            .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
-                            .padding()
-                            .background(Color(.pink.opacity(0.3)))
-                            .foregroundStyle(.white)
-                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                   
+                    if appState.state.goOut {
+                        NavigationLink(destination: Where()) {
+                            nextButton
+                        }
+                    } else {
+                        NavigationLink(destination: Tellmemore()) {
+                            nextButton
+                        }
                     }
-                    .padding(.top, 20)
-                    .simultaneousGesture(TapGesture().onEnded { withAnimation(.none) {} })
-                    Spacer()
                 }
             }
             .navigationViewStyle(.stack)
             .padding(.bottom, 40)
         }
     }
+    
+    
+    var nextButton: some View {
+        Text("Next")
+            .frame(width: 100)
+            .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
+            .padding()
+            .background(Color(.pink.opacity(0.3)))
+            .foregroundStyle(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+    }
 }
 
 #Preview {
     WhosComing()
+        .environmentObject(AppStateManager())
 }

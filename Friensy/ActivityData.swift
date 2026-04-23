@@ -10,20 +10,101 @@ import Foundation
 //model
 struct Activity {
     let name: String
-    let isGroup: Bool
+    let minPeople: Int
     let isDate: Bool
     let isOutdoor: Bool
+    
+    let types: Set<String>
+    let energyLevel: String
+    let priceLevel: String
 }
 
 struct ActivityData {
     
     static let allActivities: [Activity] = [
-        Activity(name: "Movie night", isGroup: true, isDate: true, isOutdoor: false),
-        Activity(name: "Bowling", isGroup: true, isDate: true, isOutdoor: false),
-        Activity(name: "Escape room", isGroup: true, isDate: true, isOutdoor: false),
-        Activity(name: "Board games", isGroup: true, isDate: true, isOutdoor: false),
-        Activity(name: "Hiking", isGroup: true, isDate: true, isOutdoor: true),
-        Activity(name: "Mini golf", isGroup: true, isDate: true, isOutdoor: true),
+        
+        // low energy
+        Activity(
+            name: "Movie night",
+            minPeople: 1,
+            isDate: true,
+            isOutdoor: false,
+            types: ["Entertainment", "Food & Drinks", "Chill"],
+            energyLevel: "low",
+            priceLevel: "low"
+        ),
+        
+        Activity(
+            name: "Board games",
+            minPeople: 2,
+            isDate: true,
+            isOutdoor: false,
+            types: ["Social", "Food & Drinks","Chill"],
+            energyLevel: "low",
+            priceLevel: "low"
+        ),
+        
+        Activity(
+            name: "People watching",
+            minPeople: 2,
+            isDate: true,
+            isOutdoor: false,
+            types: ["Spontaneous", "Fun", "Silly"],
+            energyLevel: "low",
+            priceLevel: "free"
+        ),
+        
+        //medium energy
+        Activity(
+            name: "Bowling",
+            minPeople: 2,
+            isDate: true,
+            isOutdoor: false,
+            types: ["Sports & Fitness", "Entertainment"],
+            energyLevel: "medium",
+            priceLevel: "medium"
+        ),
+        
+        Activity(
+            name: "Painting",
+            minPeople: 1,
+            isDate: true,
+            isOutdoor: false,
+            types: ["Creativity", "Fun"],
+            energyLevel: "medium",
+            priceLevel: "medium"
+        ),
+        
+        Activity(
+            name: "Escape room",
+            minPeople: 2,
+            isDate: true,
+            isOutdoor: false,
+            types: ["Experiences", "Focus needed"],
+            energyLevel: "medium",
+            priceLevel: "medium"
+        ),
+        
+        Activity(
+            name: "Mini golf",
+            minPeople: 2,
+            isDate: true,
+            isOutdoor: true,
+            types: ["Sports & Fitness", "Entertainment"],
+            energyLevel: "medium",
+            priceLevel: "medium"
+        ),
+        
+        //high energy
+        Activity(
+            name: "Hiking",
+            minPeople: 1,
+            isDate: true,
+            isOutdoor: true,
+            types: ["Sports & Fitness", "Experiences"],
+            energyLevel: "high",
+            priceLevel: "free"
+        )
     ]
     
     static func generateIdeas(from state: AppState) -> [String] {
@@ -34,72 +115,51 @@ struct ActivityData {
             
             var score = 0
             
-            // -------------------
-            // STAY IN MODE
-            // -------------------
-            if !state.goOut {
-                if !activity.isOutdoor {
+            //hard filters
+            
+            // group size
+            if state.number < activity.minPeople {
+                continue
+            }
+            
+            // date filter
+            if state.isDate && !activity.isDate {
+                continue
+            }
+            
+            // stay in / go out (clean version)
+            if state.goOut && activity.isOutdoor {
+                score += 2
+            }
+            
+            if !state.goOut && !activity.isOutdoor {
+                score += 2
+            }
+            
+            //types
+            for type in state.selectedTypes {
+                if activity.types.contains(type) {
                     score += 3
                 }
             }
             
-            // -------------------
-            // GO OUT MODE
-            // -------------------
-            if state.goOut {
-                if state.isOutdoors == activity.isOutdoor {
-                    score += 2
-                }
+            //energy
+            if state.energyLevel == activity.energyLevel {
+                score += 3
+            } else if state.energyLevel == "high" {
+                score += 1
+            } else if state.energyLevel == "medium" {
+                score += 1
             }
             
-            // -------------------
-            // DATE
-            // -------------------
-            if state.isDate && activity.isDate {
-                score += 2
+            //price
+            if state.priceRange == activity.priceLevel {
+                score += 3
+            } else if state.priceRange == "high" {
+                score += 1
             }
             
-            // -------------------
-            // GROUP SIZE
-            // -------------------
-            if state.number >= 3 && activity.isGroup {
-                score += 2
-            }
-            
-            if state.number == 2 && activity.isDate {
-                score += 2
-            }
-            
-            // -------------------
-            // VIBES
-            // -------------------
-            if state.vibes.contains("Fun") {
-                if activity.isGroup || activity.isOutdoor {
-                    score += 2
-                }
-            }
-            
-            if state.vibes.contains("Chill") {
-                if !activity.isOutdoor {
-                    score += 2
-                }
-            }
-            
-            if state.vibes.contains("Active") {
-                if activity.isOutdoor {
-                    score += 2
-                }
-            }
-            
-            if state.vibes.contains("Social") {
-                if activity.isGroup {
-                    score += 2
-                }
-            }
-            
-            // -------------------
-            // SAVE RESULT
-            // -------------------
+            //save result
             if score > 0 {
                 results.append((activity.name, score))
             }

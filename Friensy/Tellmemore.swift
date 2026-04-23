@@ -17,17 +17,18 @@ struct Tellmemore: View {
             Text("Tell Me More")
                 .font(Font.custom("Bodoni 72 Oldstyle", size: 40))
             
-            Text("Select vibes")
+            Text("Activity Type")
                 .font(.headline)
-            
-            // multi select buttons
-            HStack(spacing: 12) {
-                vibeButton("Fun")
-                vibeButton("Chill")
-                vibeButton("Active")
-                vibeButton("Social")
-                vibeButton("Creative")
+
+            LazyVGrid(columns: [
+                GridItem(.adaptive(minimum: 110))
+            ], spacing: 10) {
+                
+                ForEach(ActivityTypes.all, id: \.self) { type in
+                    typeChip(type)
+                }
             }
+            
             
             Spacer()
             
@@ -43,25 +44,28 @@ struct Tellmemore: View {
         .padding()
     }
     
-    //button ui
-    func vibeButton(_ vibe: String) -> some View {
+    func typeChip(_ type: String) -> some View {
         Button(action: {
-            toggleVibe(vibe)
+            toggleType(type)
         }) {
-            Text(vibe)
-                .padding()
-                .background(appState.state.vibes.contains(vibe) ? Color.pink : Color.gray.opacity(0.3))
+            Text(type)
+                .padding(.vertical, 8)
+                .padding(.horizontal, 12)
+                .background(
+                    appState.state.selectedTypes.contains(type)
+                    ? Color.pink
+                    : Color.gray.opacity(0.3)
+                )
                 .foregroundColor(.white)
                 .cornerRadius(10)
         }
     }
     
-    //toggle logic
-    func toggleVibe(_ vibe: String) {
-        if appState.state.vibes.contains(vibe) {
-            appState.state.vibes.remove(vibe)
+    func toggleType(_ type: String) {
+        if appState.state.selectedTypes.contains(type) {
+            appState.state.selectedTypes.remove(type)
         } else {
-            appState.state.vibes.insert(vibe)
+            appState.state.selectedTypes.insert(type)
         }
     }
 }

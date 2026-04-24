@@ -29,6 +29,25 @@ struct Tellmemore: View {
                 }
             }
             
+            Text("Energy Level")
+                .font(.headline)
+
+            Picker("", selection: $appState.state.energyLevel) {
+                Text("Low").tag("low")
+                Text("Medium").tag("medium")
+                Text("High").tag("high")
+            }
+            .pickerStyle(.segmented)
+            
+            Text("Price")
+                .font(.headline)
+
+            Picker("", selection: $appState.state.priceRange) {
+                Text("$").tag("low")
+                Text("$$").tag("medium")
+                Text("$$$").tag("high")
+            }
+            .pickerStyle(.segmented)
             
             Spacer()
             

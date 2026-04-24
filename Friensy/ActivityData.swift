@@ -115,58 +115,40 @@ struct ActivityData {
             
             var score = 0
             
-            //hard filters
             
             // group size
             if state.number < activity.minPeople {
                 continue
             }
             
-            // date filter
+            // date
             if state.isDate && !activity.isDate {
                 continue
             }
             
-            // stay in / go out (clean version)
-            if state.goOut && activity.isOutdoor {
-                score += 2
+            // stay in vs go out
+            if !state.goOut && activity.isOutdoor {
+                continue
             }
             
-            if !state.goOut && !activity.isOutdoor {
-                score += 2
-            }
-            
-            //types
+            var typeMatch = false
+
             for type in state.selectedTypes {
                 if activity.types.contains(type) {
                     score += 3
+                    typeMatch = true
                 }
             }
-            
-            //energy
-            if state.energyLevel == activity.energyLevel {
-                score += 3
-            } else if state.energyLevel == "high" {
-                score += 1
-            } else if state.energyLevel == "medium" {
-                score += 1
+
+            // small penalty if user selected types but this doesn't match
+            if !state.selectedTypes.isEmpty && !typeMatch {
+                score -= 1
             }
+
             
-            //price
-            if state.priceRange == activity.priceLevel {
-                score += 3
-            } else if state.priceRange == "high" {
-                score += 1
-            }
-            
-            //save result
-            if score > 0 {
-                results.append((activity.name, score))
-            }
+            results.append((activity.name, score))
         }
         
-        return results
-            .sorted { $0.1 > $1.1 }
-            .map { $0.0 }
+        return results.map { $0.0 }
     }
 }

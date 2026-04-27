@@ -17,7 +17,6 @@ struct ActivityTypes {
     static let music = "Music"
     static let experiences = "Experiences"
     static let silly = "Silly"
-    static let focus = "Focus needed"
     static let fun = "Fun"
     static let food = "Food & Drinks"
     static let spontaneous = "Spontaneous"
@@ -33,7 +32,6 @@ struct ActivityTypes {
         music,
         experiences,
         silly,
-        focus,
         fun,
         food,
         spontaneous,

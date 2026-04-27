@@ -13,6 +13,19 @@ enum LocationRequirement {
     case flexible
 }
 
+enum EnergyLevel {
+    case low
+    case medium
+    case high
+}
+
+enum PriceLevel {
+    case free
+    case low
+    case medium
+    case high
+}
+
 //model
 struct Activity {
     let name: String
@@ -22,15 +35,19 @@ struct Activity {
     let goOut: Bool
     
     let types: Set<String>
-    let energyLevel: String
-    let priceLevel: String
+    let energyLevel: EnergyLevel
+    let priceLevel: PriceLevel
+    let requiresFocus: Bool
 }
 
 struct ActivityData {
     
     static let allActivities: [Activity] = [
         
-        // low energy
+        //////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////!STAY IN!/////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
+        
         Activity(
             name: "Movie night",
             minPeople: 1,
@@ -38,8 +55,9 @@ struct ActivityData {
             locationRequirement: .indoor,
             goOut: false,
             types: ["Entertainment", "Food & Drinks", "Chill"],
-            energyLevel: "⚡️",
-            priceLevel: "$"
+            energyLevel: .low,
+            priceLevel: .free,
+            requiresFocus: false
         ),
         
         Activity(
@@ -49,53 +67,75 @@ struct ActivityData {
             locationRequirement: .indoor,
             goOut: false,
             types: ["Social", "Food & Drinks","Chill"],
-            energyLevel: "⚡️",
-            priceLevel: "$"
+            energyLevel: .low,
+            priceLevel: .free,
+            requiresFocus: false
         ),
         
         Activity(
-            name: "People watching",
-            minPeople: 2,
-            isDate: true,
-            locationRequirement: .flexible,
-            goOut: false,
-            types: ["Spontaneous", "Fun", "Silly"],
-            energyLevel: "⚡️",
-            priceLevel: "free"
-        ),
-        
-        //medium energy
-        Activity(
-            name: "Bowling",
-            minPeople: 2,
-            isDate: true,
-            locationRequirement: .indoor,
-            goOut: true,
-            types: ["Sports & Fitness", "Entertainment"],
-            energyLevel: "⚡️⚡️",
-            priceLevel: "$$"
-        ),
-        
-        Activity(
-            name: "Painting",
+            name: "Puzzles",
             minPeople: 1,
             isDate: true,
-            locationRequirement: .flexible,
+            locationRequirement: .indoor,
             goOut: false,
-            types: ["Creativity", "Fun"],
-            energyLevel: "⚡️⚡️",
-            priceLevel: "$$"
+            types: ["Social", "Food & Drinks","Chill"],
+            energyLevel: .low,
+            priceLevel: .free,
+            requiresFocus: true
         ),
         
         Activity(
-            name: "Escape room",
-            minPeople: 2,
+            name: "",
+            minPeople: 1,
             isDate: true,
             locationRequirement: .indoor,
+            goOut: false,
+            types: [""],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: false,
+            types: [""],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: false,
+            types: [""],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+        ),
+        //////////////////////////////////////////////////////////////////////////
+        
+        
+        //////////////////////////////////////////////////////////////////////////
+        /////////////////////////////////!OUTDOOR!////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
+        
+        Activity(
+            name: "Hiking",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .outdoor,
             goOut: true,
-            types: ["Experiences", "Focus needed"],
-            energyLevel: "⚡️⚡️",
-            priceLevel: "$$"
+            types: ["Sports & Fitness", "Experiences"],
+            energyLevel: .high,
+            priceLevel: .free,
+            requiresFocus: false
         ),
         
         Activity(
@@ -105,22 +145,109 @@ struct ActivityData {
             locationRequirement: .outdoor,
             goOut: true,
             types: ["Sports & Fitness", "Entertainment"],
-            energyLevel: "⚡️⚡️",
-            priceLevel: "$$"
+            energyLevel: .medium,
+            priceLevel: .medium,
+            requiresFocus: false
         ),
         
-        //high energy
         Activity(
-            name: "Hiking",
+            name: "",
             minPeople: 1,
             isDate: true,
             locationRequirement: .outdoor,
             goOut: true,
-            types: ["Sports & Fitness", "Experiences"],
-            energyLevel: "⚡️",
-            priceLevel: "free"
+            types: [""],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+        ),
+        //////////////////////////////////////////////////////////////////////////
+        
+       
+        //////////////////////////////////////////////////////////////////////////
+        ////////////////////////////////!FLEXIBLE!////////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
+        
+        Activity(
+            name: "People watching",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .flexible,
+            goOut: true,
+            types: ["Spontaneous", "Fun", "Silly"],
+            energyLevel: .low,
+            priceLevel: .free,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Painting",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .flexible,
+            goOut: false,
+            types: ["Creativity", "Fun"],
+            energyLevel: .medium,
+            priceLevel: .medium,
+            requiresFocus: true
+        ),
+        
+        Activity(
+            name: "",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .flexible,
+            goOut: false,
+            types: [""],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+        ),
+        //////////////////////////////////////////////////////////////////////////
+        
+        
+        //////////////////////////////////////////////////////////////////////////
+        /////////////////////////////!GO OUT - INDOOR!////////////////////////////
+        //////////////////////////////////////////////////////////////////////////
+        
+        Activity(
+            name: "Bowling",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: true,
+            types: ["Sports & Fitness", "Entertainment"],
+            energyLevel: .medium,
+            priceLevel: .medium,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: true,
+            types: [""],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Escape room",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: true,
+            types: ["Experiences"],
+            energyLevel: .medium,
+            priceLevel: .medium,
+            requiresFocus: true
         )
     ]
+    
+    //////////////////////////////////////////////////////////////////////////////
     
     static func generateIdeas(from state: AppState) -> [String] {
         
@@ -163,13 +290,35 @@ struct ActivityData {
 
             // small penalty if user selected types but this doesn't match
             if !state.selectedTypes.isEmpty && !typeMatch {
-                score -= 1
+                score -= 0 //1 once have more activites
             }
 
             
             results.append((activity.name, score))
         }
         
-        return results.map { $0.0 }
+        return results
+            .sorted { $0.1 > $1.1 }
+            .map { $0.0 }
+    }
+}
+
+extension EnergyLevel {
+    var emoji: String {
+        switch self {
+        case .low: return ""
+        case .medium: return ""
+        case .high: return ""
+        }
+    }
+}
+extension PriceLevel {
+    var emoji: String {
+        switch self {
+        case .free: return ""
+        case .low: return ""
+        case .medium: return ""
+        case .high: return ""
+        }
     }
 }

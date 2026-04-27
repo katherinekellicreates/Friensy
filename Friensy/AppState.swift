@@ -22,7 +22,5 @@ struct AppState {
     var weather: String = "☀️"
     
     //tell me more
-    var energyLevel: String = "⚡️"
-    var priceRange: String = "$"
     var selectedTypes: Set<String> = []
 }

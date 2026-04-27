@@ -35,17 +35,18 @@ struct Where: View {
                         .frame(width: 250, height: 40)
                     }
                     .padding(20)
-                    HStack{
-                        Text("Indoors")
+                    VStack(spacing: 5) {
+                        Text("Location")
                             .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
-                            .fontWeight(appState.state.isOutdoors ? .regular : .bold)
-                            .foregroundColor(appState.state.isOutdoors ? .secondary : .primary)
-                        Toggle("", isOn: $appState.state.isOutdoors)
-                            .frame(width: 60)
-                        Text("Outdoors")
-                            .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
-                            .fontWeight(appState.state.isOutdoors ? .bold : .regular)
-                            .foregroundColor(appState.state.isOutdoors ? .primary : .secondary) // sets mi to bold if in mi
+                            
+                        Picker("", selection: $appState.state.selectedLocation) {
+                            Text("Indoor").tag(LocationType.indoor)
+                            Text("Outdoor").tag(LocationType.outdoor)
+                            Text("Both").tag(LocationType.both)
+                        }
+                        .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
+                        .pickerStyle (.segmented)
+                        .frame(width: 260, height: 40)
                     }
                     .padding()
                     

@@ -7,12 +7,19 @@
 
 import Foundation
 
+enum LocationType {
+    case indoor
+    case outdoor
+    case both
+}
+
 //model
 struct Activity {
     let name: String
     let minPeople: Int
     let isDate: Bool
-    let isOutdoor: Bool
+    let locationType: LocationType
+    let goOut: Bool
     
     let types: Set<String>
     let energyLevel: String
@@ -28,29 +35,32 @@ struct ActivityData {
             name: "Movie night",
             minPeople: 1,
             isDate: true,
-            isOutdoor: false,
+            locationType: .indoor,
+            goOut: false,
             types: ["Entertainment", "Food & Drinks", "Chill"],
-            energyLevel: "low",
-            priceLevel: "low"
+            energyLevel: "⚡️",
+            priceLevel: "$"
         ),
         
         Activity(
             name: "Board games",
             minPeople: 2,
             isDate: true,
-            isOutdoor: false,
+            locationType: .indoor,
+            goOut: false,
             types: ["Social", "Food & Drinks","Chill"],
-            energyLevel: "low",
-            priceLevel: "low"
+            energyLevel: "⚡️",
+            priceLevel: "$"
         ),
         
         Activity(
             name: "People watching",
             minPeople: 2,
             isDate: true,
-            isOutdoor: false,
+            locationType: .both,
+            goOut: false,
             types: ["Spontaneous", "Fun", "Silly"],
-            energyLevel: "low",
+            energyLevel: "⚡️",
             priceLevel: "free"
         ),
         
@@ -59,40 +69,44 @@ struct ActivityData {
             name: "Bowling",
             minPeople: 2,
             isDate: true,
-            isOutdoor: false,
+            locationType: .indoor,
+            goOut: true,
             types: ["Sports & Fitness", "Entertainment"],
-            energyLevel: "medium",
-            priceLevel: "medium"
+            energyLevel: "⚡️⚡️",
+            priceLevel: "$$"
         ),
         
         Activity(
             name: "Painting",
             minPeople: 1,
             isDate: true,
-            isOutdoor: false,
+            locationType: .both,
+            goOut: false,
             types: ["Creativity", "Fun"],
-            energyLevel: "medium",
-            priceLevel: "medium"
+            energyLevel: "⚡️⚡️",
+            priceLevel: "$$"
         ),
         
         Activity(
             name: "Escape room",
             minPeople: 2,
             isDate: true,
-            isOutdoor: false,
+            locationType: .indoor,
+            goOut: true,
             types: ["Experiences", "Focus needed"],
-            energyLevel: "medium",
-            priceLevel: "medium"
+            energyLevel: "⚡️⚡️",
+            priceLevel: "$$"
         ),
         
         Activity(
             name: "Mini golf",
             minPeople: 2,
             isDate: true,
-            isOutdoor: true,
+            locationType: .outdoor,
+            goOut: true,
             types: ["Sports & Fitness", "Entertainment"],
-            energyLevel: "medium",
-            priceLevel: "medium"
+            energyLevel: "⚡️⚡️",
+            priceLevel: "$$"
         ),
         
         //high energy
@@ -100,9 +114,10 @@ struct ActivityData {
             name: "Hiking",
             minPeople: 1,
             isDate: true,
-            isOutdoor: true,
+            locationType: .outdoor,
+            goOut: true,
             types: ["Sports & Fitness", "Experiences"],
-            energyLevel: "high",
+            energyLevel: "⚡️",
             priceLevel: "free"
         )
     ]
@@ -127,7 +142,8 @@ struct ActivityData {
             }
             
             // stay in vs go out
-            if !state.goOut && activity.isOutdoor {
+            if activity.locationType != .both &&
+                activity.locationType != state.selectedLocation {
                 continue
             }
             

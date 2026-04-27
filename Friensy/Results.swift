@@ -25,6 +25,7 @@ struct Results: View {
             } else {
                 List(ideas, id: \.self) { idea in
                     Text(idea)
+                        .font(Font.custom("Bodoni 72 Oldstyle", size: 25))
                 }
             }
         }

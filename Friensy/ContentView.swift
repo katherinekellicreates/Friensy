@@ -41,3 +41,4 @@ struct ContentView: View {
     ContentView()
         .environmentObject(AppStateManager())
 }
+

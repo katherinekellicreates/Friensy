@@ -16,13 +16,13 @@ struct AppState {
     
     //plan type
     var goOut: Bool = true
-    var isOutdoors: Bool = false
+    var selectedLocation: LocationType? = nil
     
     //weather
     var weather: String = "☀️"
     
     //tell me more
-    var energyLevel: String = "medium"
-    var priceRange: String = "low"
+    var energyLevel: String = "⚡️"
+    var priceRange: String = "$"
     var selectedTypes: Set<String> = []
 }

@@ -16,7 +16,7 @@ struct AppState {
     
     //plan type
     var goOut: Bool = true
-    var selectedLocation: LocationType? = nil
+    var selectedLocation: LocationRequirement = .indoor
     
     //weather
     var weather: String = "☀️"

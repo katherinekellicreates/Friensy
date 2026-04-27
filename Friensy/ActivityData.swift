@@ -7,10 +7,10 @@
 
 import Foundation
 
-enum LocationType {
+enum LocationRequirement {
     case indoor
     case outdoor
-    case both
+    case flexible
 }
 
 //model
@@ -18,7 +18,7 @@ struct Activity {
     let name: String
     let minPeople: Int
     let isDate: Bool
-    let locationType: LocationType
+    let locationRequirement: LocationRequirement
     let goOut: Bool
     
     let types: Set<String>
@@ -35,7 +35,7 @@ struct ActivityData {
             name: "Movie night",
             minPeople: 1,
             isDate: true,
-            locationType: .indoor,
+            locationRequirement: .indoor,
             goOut: false,
             types: ["Entertainment", "Food & Drinks", "Chill"],
             energyLevel: "⚡️",
@@ -46,7 +46,7 @@ struct ActivityData {
             name: "Board games",
             minPeople: 2,
             isDate: true,
-            locationType: .indoor,
+            locationRequirement: .indoor,
             goOut: false,
             types: ["Social", "Food & Drinks","Chill"],
             energyLevel: "⚡️",
@@ -57,7 +57,7 @@ struct ActivityData {
             name: "People watching",
             minPeople: 2,
             isDate: true,
-            locationType: .both,
+            locationRequirement: .flexible,
             goOut: false,
             types: ["Spontaneous", "Fun", "Silly"],
             energyLevel: "⚡️",
@@ -69,7 +69,7 @@ struct ActivityData {
             name: "Bowling",
             minPeople: 2,
             isDate: true,
-            locationType: .indoor,
+            locationRequirement: .indoor,
             goOut: true,
             types: ["Sports & Fitness", "Entertainment"],
             energyLevel: "⚡️⚡️",
@@ -80,7 +80,7 @@ struct ActivityData {
             name: "Painting",
             minPeople: 1,
             isDate: true,
-            locationType: .both,
+            locationRequirement: .flexible,
             goOut: false,
             types: ["Creativity", "Fun"],
             energyLevel: "⚡️⚡️",
@@ -91,7 +91,7 @@ struct ActivityData {
             name: "Escape room",
             minPeople: 2,
             isDate: true,
-            locationType: .indoor,
+            locationRequirement: .indoor,
             goOut: true,
             types: ["Experiences", "Focus needed"],
             energyLevel: "⚡️⚡️",
@@ -102,7 +102,7 @@ struct ActivityData {
             name: "Mini golf",
             minPeople: 2,
             isDate: true,
-            locationType: .outdoor,
+            locationRequirement: .outdoor,
             goOut: true,
             types: ["Sports & Fitness", "Entertainment"],
             energyLevel: "⚡️⚡️",
@@ -114,7 +114,7 @@ struct ActivityData {
             name: "Hiking",
             minPeople: 1,
             isDate: true,
-            locationType: .outdoor,
+            locationRequirement: .outdoor,
             goOut: true,
             types: ["Sports & Fitness", "Experiences"],
             energyLevel: "⚡️",
@@ -142,11 +142,16 @@ struct ActivityData {
             }
             
             // stay in vs go out
-            if activity.locationType != .both &&
-                activity.locationType != state.selectedLocation {
+            if activity.goOut != state.goOut {
                 continue
             }
-            
+
+            if state.goOut {
+                if activity.locationRequirement != state.selectedLocation &&
+                    activity.locationRequirement != .flexible {
+                    continue
+                }
+            }
             var typeMatch = false
 
             for type in state.selectedTypes {

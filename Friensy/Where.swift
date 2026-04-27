@@ -40,9 +40,8 @@ struct Where: View {
                             .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
                             
                         Picker("", selection: $appState.state.selectedLocation) {
-                            Text("Indoor").tag(LocationType.indoor)
-                            Text("Outdoor").tag(LocationType.outdoor)
-                            Text("Both").tag(LocationType.both)
+                            Text("Indoor").tag(LocationRequirement.indoor)
+                            Text("Outdoor").tag(LocationRequirement.outdoor)
                         }
                         .font((Font.custom("Bodoni 72 Oldstyle", size: 20)))
                         .pickerStyle (.segmented)

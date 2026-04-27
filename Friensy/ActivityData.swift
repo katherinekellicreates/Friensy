@@ -14,6 +14,7 @@ enum LocationRequirement {
 }
 
 enum EnergyLevel {
+    case lowest
     case low
     case medium
     case high
@@ -55,7 +56,7 @@ struct ActivityData {
             locationRequirement: .indoor,
             goOut: false,
             types: ["Entertainment", "Food & Drinks", "Chill"],
-            energyLevel: .low,
+            energyLevel: .lowest,
             priceLevel: .free,
             requiresFocus: false
         ),
@@ -85,36 +86,36 @@ struct ActivityData {
         ),
         
         Activity(
-            name: "",
+            name: "Minecraft",
             minPeople: 1,
             isDate: true,
             locationRequirement: .indoor,
             goOut: false,
-            types: [""],
-            energyLevel: .low,
-            priceLevel: .low,
+            types: ["Gaming","Entertainment","Fun","Social"],
+            energyLevel: .lowest,
+            priceLevel: .free,
             requiresFocus: false
         ),
         
         Activity(
-            name: "",
+            name: "Roblox",
             minPeople: 1,
             isDate: true,
             locationRequirement: .indoor,
             goOut: false,
-            types: [""],
-            energyLevel: .low,
-            priceLevel: .low,
+            types: ["Gaming","Entertainment","Fun","Social"],
+            energyLevel: .lowest,
+            priceLevel: .free,
             requiresFocus: false
         ),
         
         Activity(
-            name: "",
+            name: "Call of Duty",
             minPeople: 1,
             isDate: true,
             locationRequirement: .indoor,
             goOut: false,
-            types: [""],
+            types: ["Gaming","Entertainment","Fun","Social"],
             energyLevel: .low,
             priceLevel: .low,
             requiresFocus: false
@@ -151,14 +152,14 @@ struct ActivityData {
         ),
         
         Activity(
-            name: "",
+            name: "Amusement Park",
             minPeople: 1,
             isDate: true,
             locationRequirement: .outdoor,
             goOut: true,
-            types: [""],
-            energyLevel: .low,
-            priceLevel: .low,
+            types: ["Social", "Experiences","Fun","Food & Drinks"],
+            energyLevel: .high,
+            priceLevel: .high,
             requiresFocus: false
         ),
         //////////////////////////////////////////////////////////////////////////
@@ -192,17 +193,6 @@ struct ActivityData {
             requiresFocus: true
         ),
         
-        Activity(
-            name: "",
-            minPeople: 1,
-            isDate: true,
-            locationRequirement: .flexible,
-            goOut: false,
-            types: [""],
-            energyLevel: .low,
-            priceLevel: .low,
-            requiresFocus: false
-        ),
         //////////////////////////////////////////////////////////////////////////
         
         
@@ -223,14 +213,14 @@ struct ActivityData {
         ),
         
         Activity(
-            name: "",
-            minPeople: 1,
+            name: "Arcade",
+            minPeople: 2,
             isDate: true,
             locationRequirement: .indoor,
             goOut: true,
-            types: [""],
-            energyLevel: .low,
-            priceLevel: .low,
+            types: ["Entertainment", "Fun","Food & Drinks"],
+            energyLevel: .medium,
+            priceLevel: .medium,
             requiresFocus: false
         ),
         
@@ -306,19 +296,20 @@ struct ActivityData {
 extension EnergyLevel {
     var emoji: String {
         switch self {
-        case .low: return ""
-        case .medium: return ""
-        case .high: return ""
+        case .lowest: return "⚡️"
+        case .low: return "⚡️⚡️"
+        case .medium: return "⚡️⚡️⚡️"
+        case .high: return "⚡️⚡️⚡️⚡️"
         }
     }
 }
 extension PriceLevel {
-    var emoji: String {
+    var display: String {
         switch self {
-        case .free: return ""
-        case .low: return ""
-        case .medium: return ""
-        case .high: return ""
+        case .free: return "Free"
+        case .low: return "$"
+        case .medium: return "$$"
+        case .high: return "$$$"
         }
     }
 }

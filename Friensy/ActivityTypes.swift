@@ -13,7 +13,7 @@ struct ActivityTypes {
     static let creativity = "Creativity"
     static let productive = "Study/Productive"
     static let entertainment = "Entertainment"
-    static let digital = "Digital"
+    static let gaming = "Gaming"
     static let music = "Music"
     static let experiences = "Experiences"
     static let silly = "Silly"
@@ -22,13 +22,14 @@ struct ActivityTypes {
     static let spontaneous = "Spontaneous"
     static let social = "Social"
     static let chill = "Chill"
+    static let digital = "Digital"
     
     static let all: [String] = [
         sports,
         creativity,
         productive,
         entertainment,
-        digital,
+        gaming,
         music,
         experiences,
         silly,
@@ -36,6 +37,7 @@ struct ActivityTypes {
         food,
         spontaneous,
         social,
-        chill
+        chill,
+        digital
     ]
 }

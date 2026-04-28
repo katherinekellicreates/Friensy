@@ -239,9 +239,9 @@ struct ActivityData {
     
     //////////////////////////////////////////////////////////////////////////////
     
-    static func generateIdeas(from state: AppState) -> [String] {
+    static func generateIdeas(from state: AppState) -> [Activity] {
         
-        var results: [(String, Int)] = []
+        var results: [(Activity, Int)] = []
         
         for activity in allActivities {
             
@@ -284,7 +284,7 @@ struct ActivityData {
             }
 
             
-            results.append((activity.name, score))
+            results.append((activity, score))
         }
         
         return results

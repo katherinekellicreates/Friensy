@@ -3,7 +3,7 @@
 //  Friensy
 //
 //  Created by Katherine Pizzirusso on 4/17/26.
-//  Gabby did this
+
 
 import SwiftUI
 import MapKit

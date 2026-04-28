@@ -234,6 +234,17 @@ struct ActivityData {
             energyLevel: .medium,
             priceLevel: .medium,
             requiresFocus: true
+        ),
+        Activity(
+            name: "Laser tag",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: true,
+            types: ["Experiences","Fun"],
+            energyLevel: .high,
+            priceLevel: .medium,
+            requiresFocus: false
         )
     ]
     

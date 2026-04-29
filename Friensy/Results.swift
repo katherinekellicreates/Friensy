@@ -24,16 +24,18 @@ struct Results: View {
                 Text("No matches — try different settings")
             } else {
                 List(ideas, id: \.name) { activity in
-                    VStack(alignment: .leading) {
-                        Text(activity.name)
-                            .font(Font.custom("Bodoni 72 Oldstyle", size: 25))
-                        
-                        HStack {
-                            Text(activity.energyLevel.emoji)
-                            Text(activity.priceLevel.display)
+                    NavigationLink(destination: ActivityDetailView(activity: activity)) {
+                        VStack(alignment: .leading) {
+                            Text(activity.name)
+                                .font(Font.custom("Bodoni 72 Oldstyle", size: 25))
                             
-                            if activity.requiresFocus {
-                                Text("🧠")
+                            HStack {
+                                Text(activity.energyLevel.emoji)
+                                Text(activity.priceLevel.display)
+                                
+                                if activity.requiresFocus {
+                                    Text("🧠")
+                                }
                             }
                         }
                     }

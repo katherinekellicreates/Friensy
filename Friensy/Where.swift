@@ -22,7 +22,17 @@ struct Where: View {
                     Text("Where?")
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                   
-                    Text("Weather")
+                    VStack(spacing: 10) {
+                        Text("Weather")
+                        
+                        if weatherManager.temperature != 0 {
+                            Text("\(weatherEmoji()) \(Int(weatherManager.temperature))°F")
+                                .font(.title)
+                        } else {
+                            Text("Loading weather...")
+                                .foregroundColor(.gray)
+                        }
+                    }
                 
                     .padding(20)
                     VStack(spacing: 5) {

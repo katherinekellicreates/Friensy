@@ -39,8 +39,8 @@ struct WhosComing: View {
                     VStack(spacing: 5) {
                         Text("Who's coming?")
                         Picker("", selection: $appState.state.gender) {
-                            Text("Males").tag("Males")
-                            Text("Females").tag("Females")
+                            Text("Guys").tag("Males")
+                            Text("Gals").tag("Females")
                             Text("Both").tag("Both")
                         }
                         .pickerStyle(.segmented)

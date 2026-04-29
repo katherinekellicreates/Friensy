@@ -13,6 +13,7 @@ struct Where: View {
     @State private var startPosition = MapCameraPosition.automatic
     @State private var locationManager = LocationManager()
     @State private var radius: Double = 5
+    @State private var weatherManager = WeatherManager()
     
     var body: some View {
         NavigationView {
@@ -85,6 +86,7 @@ struct Where: View {
                     Group {
                         if let location = locationManager.userLocation {
                             
+                            
                             Map(position: $startPosition) {
                                 UserAnnotation()
                                 
@@ -100,7 +102,16 @@ struct Where: View {
                             .onChange(of: radius) {
                                 updateCamera()
                             }
-                            
+                            .onChange(of: locationManager.userLocation?.latitude) {
+                                guard let location = locationManager.userLocation else { return }
+                                
+                                weatherManager.fetchWeather(
+                                    lat: location.latitude,
+                                    lon: location.longitude
+                                )
+                                
+                                updateCamera()
+                            }
                         } else {
                             ZStack {
                                 Color.pink.opacity(0.1)

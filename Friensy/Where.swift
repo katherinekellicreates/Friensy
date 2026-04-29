@@ -27,7 +27,7 @@ struct Where: View {
                         
                         if weatherManager.temperature != 0 {
                             Text("\(weatherEmoji()) \(Int(weatherManager.temperature))°F")
-                                .font(.title)
+                                .font(.system(size: 50))
                         } else {
                             Text("Loading weather...")
                                 .foregroundColor(.gray)

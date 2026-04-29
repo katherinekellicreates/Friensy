@@ -23,18 +23,7 @@ struct Where: View {
                         .font(Font.custom("Bodoni 72 Oldstyle", size: 45))
                   
                     Text("Weather")
-                    HStack{
-                        Picker("", selection: $appState.state.weather) {
-                            Text("☀️").tag("☀️")
-                            Text("⛅").tag("⛅")
-                            Text("🌧️").tag("🌧️")
-                            Text("🌩️").tag("🌩️")
-                            Text("❄️").tag("❄️")
-                        }
-                        .pickerStyle(.segmented)
-                        .scaleEffect(1.3)
-                        .frame(width: 250, height: 40)
-                    }
+                
                     .padding(20)
                     VStack(spacing: 5) {
                         Text("Location")
@@ -171,6 +160,17 @@ struct Where: View {
                     )
                 )
             )
+        }
+    }
+    
+    func weatherEmoji() -> String {
+        switch weatherManager.condition {
+        case "Clear": return "☀️"
+        case "Clouds": return "⛅"
+        case "Rain": return "🌧️"
+        case "Thunderstorm": return "🌩️"
+        case "Snow": return "❄️"
+        default: return "🌤️"
         }
     }
 }

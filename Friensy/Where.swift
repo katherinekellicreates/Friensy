@@ -97,6 +97,13 @@ struct Where: View {
                             }
                             .onAppear {
                                 updateCamera()
+                                
+                                if let location = locationManager.userLocation {
+                                       weatherManager.fetchWeather(
+                                           lat: location.latitude,
+                                           lon: location.longitude
+                                       )
+                                   }
                             }
                             .onChange(of: radius) {
                                 updateCamera()

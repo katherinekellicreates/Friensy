@@ -166,13 +166,73 @@ struct ActivityData {
         
         Activity(
             name: "Amusement Park",
-            minPeople: 1,
+            minPeople: 2,
             isDate: true,
             locationRequirement: .outdoor,
             goOut: true,
             types: ["Social", "Experiences","Fun","Food & Drinks"],
             energyLevel: .high,
             priceLevel: .high,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Rollar Skating",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .outdoor,
+            goOut: true,
+            types: ["Social", "Sports & Fitness"],
+            energyLevel: .high,
+            priceLevel: .high,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Ice Skating",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .outdoor,
+            goOut: true,
+            types: ["Social", "Sports & Fitness"],
+            energyLevel: .high,
+            priceLevel: .medium,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Beach Day",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .outdoor,
+            goOut: true,
+            types: ["Social","Fun","Food & Drinks"],
+            energyLevel: .medium,
+            priceLevel: .free,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Thrift Shopping",
+            minPeople: 2,
+            isDate: true,
+            locationRequirement: .outdoor,
+            goOut: true,
+            types: ["Social", "Shopping","Fun"],
+            energyLevel: .high,
+            priceLevel: .medium,
+            requiresFocus: false
+        ),
+        
+        Activity(
+            name: "Bookstore Shopping",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .outdoor,
+            goOut: true,
+            types: ["Study/Productive", "Entertainment"],
+            energyLevel: .medium,
+            priceLevel: .medium,
             requiresFocus: false
         ),
         //////////////////////////////////////////////////////////////////////////

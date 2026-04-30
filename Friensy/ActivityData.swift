@@ -120,6 +120,19 @@ struct ActivityData {
             priceLevel: .low,
             requiresFocus: false
         ),
+        
+        Activity(
+            name: "Bake Something",
+            minPeople: 1,
+            isDate: true,
+            locationRequirement: .indoor,
+            goOut: false,
+            types: ["Creativity","Food & Drinks","Fun","Social"],
+            energyLevel: .low,
+            priceLevel: .low,
+            requiresFocus: false
+            
+            ),
         //////////////////////////////////////////////////////////////////////////
         
         
@@ -190,7 +203,7 @@ struct ActivityData {
             types: ["Creativity", "Fun"],
             energyLevel: .medium,
             priceLevel: .medium,
-            requiresFocus: true
+            requiresFocus: false
         ),
         
         //////////////////////////////////////////////////////////////////////////
